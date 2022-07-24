@@ -1,0 +1,126 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: 'Inter', sans-serif;
+}
+
+.container {
+    max-width: 550px;
+    height: 100vh;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+}
+
+.start-page {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: #293264;
+    background-color: #F5F7FB;
+    padding: 20% 0px;
+}
+
+    .start-page-title {
+        font-family: 'Karla';
+        font-weight: 700;
+        font-size: 31.25px;
+        line-height: 37px;
+    }
+
+    .start-page-description {
+        margin: 0px 10px 50px 10px;
+        line-height: 19px;
+        text-align: center;
+        width: 70%;
+    }
+
+    .start-page-button {
+        background: #4D5B9E;
+        border: none;
+        border-radius: 15px;
+        padding: 18px;
+        width: 35%;
+        
+        font-family: 'Inter';
+        font-size: 16px;
+        font-weight: 500;
+        line-height: 19px;
+        color: #F5F7FB;
+    }
+
+.question-page {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: #293264;
+    background-color: #F5F7FB;
+    padding: 10% 0 6% 0;
+}
+
+    .question {
+        width: 80%;
+        text-align: left;
+        margin: 6px;
+        padding: 0;
+        border: 0;
+        font-family: 'Karla';
+        font-weight: 700;
+        line-height: 19px;
+        color: #293264;
+    }
+
+    .button {
+        background: #4D5B9E;
+        border: none;
+        border-radius: 10px;
+        margin: 15px 0 0 0;
+
+        font-family: 'Inter';
+        font-weight: 600;
+        font-size: 10.24px;
+        line-height: 12px;
+        text-align: center;
+
+        color: #F5F7FB;
+        padding: 12px 20px;
+    }
+
+    hr {
+        margin: 0;
+    }
+    
+
+    input[type="radio"] {
+        opacity: 0;
+        width: 0;
+        position: fixed;
+    }
+
+    .question-options-container {
+        display: flex;
+        gap: 0 30px;
+    }
+    
+        .question-options {
+            margin: 10px 0;
+            display: flex;
+            max-width: 30%;
+
+            font-weight: 500;
+            font-size: 10.24px;
+            line-height: 12px;
+        }
+
+            .question-options-option {
+                background: #D6DBF5;
+                border-radius: 8px;
+                padding: 3px 10px;
+            }
+    
+    
