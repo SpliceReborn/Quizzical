@@ -1,25 +1,26 @@
-import logo from './logo.svg';
-import './App.css';
+import React, {useState, useEffect} from 'react';
+import './style.css'
+import Start from './Start'
+import Quiz from './Quiz'
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+export default function App() {
+
+    const [game, setGame] = useState(false)
+    const [questionArray, setQuestionArray] = useState([])
+
+    function startGame() {
+        setGame(true) 
+    }
+
+    useEffect(() => {
+        fetch("https://opentdb.com/api.php?amount=5")
+            .then(res => res.json())
+            .then(data => setQuestionArray(data.results))
+    }, [])
+
+    return (
+        game ? 
+            <main className="container"><Quiz questionArray={questionArray}/></main> : 
+            <main className="container"><Start startGame={startGame}/></main>
+    )
 }
-
-export default App;
