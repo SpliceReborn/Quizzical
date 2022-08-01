@@ -1,6 +1,9 @@
 import React from 'react';
 import "./style.css"
 import Question from './Question'
+import { nanoid } from 'nanoid'
+
+var he = require('he')
 
 export default function Quiz(props) {
 
@@ -16,13 +19,23 @@ export default function Quiz(props) {
     }
 
     const questions = props.questionArray.map(question => {
+
         // Put correct and incorrect answers into an array, then shuffle
         const options = [...question.incorrect_answers]
         options.push(question.correct_answer)
         shuffle(options)
+        
+        // Generate id for question component
+        let id = nanoid() 
 
         return (
-            <Question question={question.question} options={options} />
+            <Question 
+                key={id} 
+                id={id} 
+                question={he.decode(question.question)} 
+                options={options}
+                answer={question.correct_answer}    
+            />
         )
     })
 
