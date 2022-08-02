@@ -1,47 +1,54 @@
-import React from 'react';
+import React, { useState } from 'react';
 import "./style.css"
 import Question from './Question'
 import { nanoid } from 'nanoid'
 
-var he = require('he')
-
 export default function Quiz(props) {
 
-    function shuffle(array) {
-        var m = array.length, t, i;
-        while (m) {
-            i = Math.floor(Math.random() * m--)
-            t = array[m]
-            array[m] = array[i]
-            array[i] = t
-        }
-        return array 
-    }
+    const [selectedOptions, setSelectedOptions] = useState({
+        question1: "",
+        question2: "",
+        question3: "",
+        question4: "",
+        question5: "",
+    })
 
-    function decode(array) {
-        array.forEach((ele, index) => {
-            array[index] = he.decode(ele)
+    const correct_answers = []
+    props.questionArray.forEach(question => {
+        correct_answers.push(question.correct_answer)  
+    })
+
+    function checkAnswers() {
+        let count = 0
+        correct_answers.forEach((ele, index) => {
+            if (selectedOptions[`question${index+1}`] === ele) {
+                count++
+            }
         })
+        console.log(count)
+        props.setGameFlag()
+    }    
+
+    function handleChange(event, questionNumber) {
+        const {value} = event.target
+        console.log(event.target, questionNumber)
+        setSelectedOptions(prevSelectedOptions => ({
+            ...prevSelectedOptions,
+            [questionNumber]: value
+        }))
     }
 
-    const questions = props.questionArray.map(question => {
-
-        // Put correct and incorrect answers into an array, then shuffle
-        const options = [...question.incorrect_answers]
-        options.push(question.correct_answer)
-        shuffle(options)
-        decode(options)
-        
-        // Generate id for question component
-        let id = nanoid() 
-
+    const questions = props.questionArray.map(({id, question, correct_answer, options}, index) => { 
         return (
             <Question 
                 key={id} 
-                id={id} 
-                question={he.decode(question.question)} 
+                number={`question${index+1}`} 
+                question={question} 
                 options={options}
-                answer={he.decode(question.correct_answer)}    
+                optionsId={[nanoid(), nanoid(), nanoid(), nanoid()]}
+                answer={correct_answer}
+                handleChange={handleChange}
+                gameFlag={props.gameFlag}
             />
         )
     })
@@ -49,7 +56,7 @@ export default function Quiz(props) {
     return (
         <div className="question-page">
             {questions}
-            <button className="button">Check answers</button>
+            <button className="button" onClick={checkAnswers}>Check answers</button>
         </div>
     )
 }

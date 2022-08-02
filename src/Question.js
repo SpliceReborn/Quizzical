@@ -8,29 +8,45 @@ export default function Question(props) {
     })
 
     function handleChange(event) {
+        console.log(event)
         const {value} = event.target
         setQuestionData({
             selected: value
         })
     }
 
-    useEffect(() => {
-        console.log(questionData)
-    }, [questionData])
-
     // Map array of options to list elements
-    const optionDisplay = props.options.map(option => {
+    
+    const optionDisplay = props.options.map((option, index) => {
 
-        let id = nanoid() 
+        let questionNumber = props.number
         const condition = (questionData.selected === option)
+    
+        const correct = (option === props.answer)
+        const wrong = (questionData.selected === option && questionData.selected !== props.answer)
 
-        return (
-            <div key={id} className="question-options">
-                <input type="radio" onChange={handleChange} id={option} name={props.question} value={option} checked={condition}/>
-                <label htmlFor={option} className={`question-options-option ${condition ? "question-options-option-selected" : ""}`}>{option}</label>
-            </div>
-        )
-    })
+        if (props.gameFlag === 2) {
+            return (
+                <div key={props.optionsId[index]} className="question-options">
+                    <input disabled type="radio" id={props.optionsId[index]} name={props.question} value={option}/>
+                    <label
+                        htmlFor={props.optionsId[index]} 
+                        className={
+                            `question-options-option disabled ${correct ? "correct" : ""} ${wrong ? "wrong" : ""}`
+                        }
+                    >{option}</label>
+                </div>
+            )
+        } else {
+            return (
+                <div key={props.optionsId[index]} className="question-options">
+                    <input type="radio" onChange={(event) => {handleChange(event); props.handleChange(event, questionNumber)}} id={props.optionsId[index]} name={props.question} value={option} checked={condition}/>
+                    <label htmlFor={props.optionsId[index]} className={`question-options-option ${condition ? "question-options-option-selected" : ""}`}>{option}</label>
+                </div>
+            )
+        }
+        
+    })  
 
     return (
         <fieldset className="question">

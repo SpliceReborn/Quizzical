@@ -126,5 +126,19 @@ body {
             .question-options-option-selected {
                 background: #D6DBF5;
             }
+
+            .disabled {
+                opacity: 0.5;
+            }
+
+            .correct {
+                background: #94D7A2;
+                opacity: 1;
+            }
+
+            .wrong {
+                background: #F8BCBC;
+            }
     
+            
     
