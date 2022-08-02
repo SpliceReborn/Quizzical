@@ -118,9 +118,13 @@ body {
         }
 
             .question-options-option {
-                background: #D6DBF5;
+                border: 1px solid #4D5B9E;
                 border-radius: 8px;
                 padding: 3px 10px;
+            }
+
+            .question-options-option-selected {
+                background: #D6DBF5;
             }
     
     

@@ -1,13 +1,33 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { nanoid } from 'nanoid'
 
 export default function Question(props) {
 
+    const [questionData, setQuestionData] = useState({
+        [props.question]: undefined
+    })
+
+    function handleChange(event) {
+        const {value} = event.target
+        setQuestionData({
+            [props.question]: value
+        })
+    }
+
+    useEffect(() => {
+        console.log(questionData)
+    }, [questionData])
+
     // Map array of options to list elements
     const optionDisplay = props.options.map(option => {
+
+        let id = nanoid() 
+        const condition = (questionData[Object.keys(questionData)[0]] === option)
+
         return (
-            <div className="question-options">
-                <input type="radio" onChange={(event) => props.handleChange(event)} id={option} name={props.question} value={option} />
-                <label htmlFor={option} className="question-options-option">{option}</label>
+            <div key={id} className="question-options">
+                <input type="radio" onChange={handleChange} id={option} name={props.question} value={option} checked={condition}/>
+                <label htmlFor={option} className={`question-options-option ${condition ? "question-options-option-selected" : ""}`}>{option}</label>
             </div>
         )
     })

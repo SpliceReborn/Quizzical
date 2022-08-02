@@ -18,12 +18,19 @@ export default function Quiz(props) {
         return array 
     }
 
+    function decode(array) {
+        array.forEach(option => {
+            he.decode(option)
+        })
+    }
+
     const questions = props.questionArray.map(question => {
 
         // Put correct and incorrect answers into an array, then shuffle
         const options = [...question.incorrect_answers]
         options.push(question.correct_answer)
         shuffle(options)
+        decode(options)
         
         // Generate id for question component
         let id = nanoid() 
@@ -34,7 +41,7 @@ export default function Quiz(props) {
                 id={id} 
                 question={he.decode(question.question)} 
                 options={options}
-                answer={question.correct_answer}    
+                answer={he.decode(question.correct_answer)}    
             />
         )
     })
