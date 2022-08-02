@@ -19,8 +19,8 @@ export default function Quiz(props) {
     }
 
     function decode(array) {
-        array.forEach(option => {
-            he.decode(option)
+        array.forEach((ele, index) => {
+            array[index] = he.decode(ele)
         })
     }
 

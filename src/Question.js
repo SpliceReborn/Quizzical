@@ -4,13 +4,13 @@ import { nanoid } from 'nanoid'
 export default function Question(props) {
 
     const [questionData, setQuestionData] = useState({
-        [props.question]: undefined
+        selected: undefined
     })
 
     function handleChange(event) {
         const {value} = event.target
         setQuestionData({
-            [props.question]: value
+            selected: value
         })
     }
 
@@ -22,7 +22,7 @@ export default function Question(props) {
     const optionDisplay = props.options.map(option => {
 
         let id = nanoid() 
-        const condition = (questionData[Object.keys(questionData)[0]] === option)
+        const condition = (questionData.selected === option)
 
         return (
             <div key={id} className="question-options">
