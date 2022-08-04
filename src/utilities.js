@@ -16,10 +16,11 @@ function shuffleArray(array) {
 export function filterQuestionArray(array) {
     array.forEach( ({question, correct_answer, incorrect_answers}, index) => {
         question = he.decode(question)
+        correct_answer = he.decode(correct_answer)
         const options = []
         options.push({
             id: nanoid(),
-            value: he.decode(correct_answer)
+            value: correct_answer
         })
         incorrect_answers.forEach(ele => {
             options.push({
@@ -28,7 +29,7 @@ export function filterQuestionArray(array) {
             })
         })
         shuffleArray(options)
-        
+
         const id = nanoid()
         array[index] = {id, question, correct_answer, options}
     })
