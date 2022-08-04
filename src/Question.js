@@ -23,39 +23,26 @@ export default function Question(props) {
         const correct = (option === props.answer)
         const wrong = (questionData.selected === option && questionData.selected !== props.answer)
 
-        if (!props.gameOngoing) {
-            return (
-                <div key={props.optionsId[index]} className="question-options">
-                    <input disabled type="radio" id={props.optionsId[index]} name={props.question} value={option}/>
-                    <label
-                        htmlFor={props.optionsId[index]} 
-                        className={
-                            `question-options-option disabled ${correct ? "correct" : ""} ${wrong ? "wrong" : ""}`
-                        }
-                    >{option}</label>
-                </div>
-            )
-        } else {
-            return (
-                <div key={props.optionsId[index]} className="question-options">
-                    <input 
-                        type="radio" 
-                        onChange={(event) => {handleChange(event); props.handleChange(event, questionNumber)}} 
-                        id={props.optionsId[index]} 
-                        name={props.question} 
-                        value={option} 
-                        checked={condition}
-                    />
-                    <label 
-                        htmlFor={props.optionsId[index]} 
-                        className={
-                            `question-options-option ${condition ? "question-options-option-selected" : ""}`
-                        }
-                    >{option}</label>
-                </div>
-            )
-        }
-        
+        return (
+            <div key={props.optionsId[index]} className="question-options">
+                <input 
+                    type="radio" 
+                    disabled={!props.gameOngoing}
+                    onChange={(event) => {handleChange(event); props.handleChange(event, questionNumber)}} 
+                    id={props.optionsId[index]} 
+                    name={props.question} 
+                    value={option} 
+                    checked={condition}
+                />
+                <label 
+                    htmlFor={props.optionsId[index]} 
+                    className={props.gameOngoing ? 
+                        `question-options-option ${condition ? "question-options-option-selected" : ""}` :
+                        `question-options-option disabled ${correct ? "correct" : ""} ${wrong ? "wrong" : ""}`
+                    }
+                >{option}</label>
+            </div> 
+        )     
     })  
 
     return (
