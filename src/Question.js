@@ -1,5 +1,4 @@
-import React, { useEffect, useState } from 'react';
-import { nanoid } from 'nanoid'
+import React, { useState } from 'react';
 
 export default function Question(props) {
 
@@ -8,7 +7,6 @@ export default function Question(props) {
     })
 
     function handleChange(event) {
-        console.log(event)
         const {value} = event.target
         setQuestionData({
             selected: value
@@ -25,7 +23,7 @@ export default function Question(props) {
         const correct = (option === props.answer)
         const wrong = (questionData.selected === option && questionData.selected !== props.answer)
 
-        if (props.gameFlag === 2) {
+        if (!props.gameOngoing) {
             return (
                 <div key={props.optionsId[index]} className="question-options">
                     <input disabled type="radio" id={props.optionsId[index]} name={props.question} value={option}/>
@@ -40,8 +38,20 @@ export default function Question(props) {
         } else {
             return (
                 <div key={props.optionsId[index]} className="question-options">
-                    <input type="radio" onChange={(event) => {handleChange(event); props.handleChange(event, questionNumber)}} id={props.optionsId[index]} name={props.question} value={option} checked={condition}/>
-                    <label htmlFor={props.optionsId[index]} className={`question-options-option ${condition ? "question-options-option-selected" : ""}`}>{option}</label>
+                    <input 
+                        type="radio" 
+                        onChange={(event) => {handleChange(event); props.handleChange(event, questionNumber)}} 
+                        id={props.optionsId[index]} 
+                        name={props.question} 
+                        value={option} 
+                        checked={condition}
+                    />
+                    <label 
+                        htmlFor={props.optionsId[index]} 
+                        className={
+                            `question-options-option ${condition ? "question-options-option-selected" : ""}`
+                        }
+                    >{option}</label>
                 </div>
             )
         }

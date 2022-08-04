@@ -18,20 +18,24 @@ export default function Quiz(props) {
         correct_answers.push(question.correct_answer)  
     })
 
-    function checkAnswers() {
-        let count = 0
-        correct_answers.forEach((ele, index) => {
-            if (selectedOptions[`question${index+1}`] === ele) {
-                count++
-            }
-        })
-        console.log(count)
-        props.setGameFlag()
+    const [score, setScore] = useState(0)
+
+    function checkOrRestart() {
+        if (props.gameOngoing) {
+            correct_answers.forEach((ele, index) => {
+                if (selectedOptions[`question${index+1}`] === ele) {
+                    setScore(prevScore => prevScore + 1)
+                }
+            })
+        } else {
+            setScore(0)
+        }
+
+        props.checkOrRestart()
     }    
 
     function handleChange(event, questionNumber) {
         const {value} = event.target
-        console.log(event.target, questionNumber)
         setSelectedOptions(prevSelectedOptions => ({
             ...prevSelectedOptions,
             [questionNumber]: value
@@ -48,7 +52,7 @@ export default function Quiz(props) {
                 optionsId={[nanoid(), nanoid(), nanoid(), nanoid()]}
                 answer={correct_answer}
                 handleChange={handleChange}
-                gameFlag={props.gameFlag}
+                gameOngoing={props.gameOngoing}
             />
         )
     })
@@ -56,7 +60,13 @@ export default function Quiz(props) {
     return (
         <div className="question-page">
             {questions}
-            <button className="button" onClick={checkAnswers}>Check answers</button>
+            {props.gameOngoing ? 
+                <button className="button" onClick={checkOrRestart}>Check answers</button> : 
+                <div className="scoreContainer">
+                    <p>You scored {score}/5 correct answers</p>
+                    <button className="button" onClick={checkOrRestart}>Play again</button>
+                </div>
+            }
         </div>
     )
 }

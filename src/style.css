@@ -140,5 +140,16 @@ body {
                 background: #F8BCBC;
             }
     
+    .scoreContainer {
+        display: flex;
+        align-items: center;
+        gap: 24px;
+        justify-content: center;
+        align-self: center;
+    }
+        .scoreContainer .button{
+            margin: 0;
+        }
+    
             
     
