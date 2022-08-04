@@ -49,7 +49,6 @@ export default function Quiz(props) {
                 number={`question${index+1}`} 
                 question={question} 
                 options={options}
-                optionsId={[nanoid(), nanoid(), nanoid(), nanoid()]}
                 answer={correct_answer}
                 handleChange={handleChange}
                 gameOngoing={props.gameOngoing}

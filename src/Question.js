@@ -15,32 +15,32 @@ export default function Question(props) {
 
     // Map array of options to list elements
     
-    const optionDisplay = props.options.map((option, index) => {
+    const optionDisplay = props.options.map(option => {
 
         let questionNumber = props.number
-        const condition = (questionData.selected === option)
+        const condition = (questionData.selected === option.value)
     
-        const correct = (option === props.answer)
-        const wrong = (questionData.selected === option && questionData.selected !== props.answer)
+        const correct = (option.value === props.answer)
+        const wrong = (questionData.selected === option.value && questionData.selected !== props.answer)
 
         return (
-            <div key={props.optionsId[index]} className="question-options">
+            <div key={option.id} className="question-options">
                 <input 
                     type="radio" 
                     disabled={!props.gameOngoing}
                     onChange={(event) => {handleChange(event); props.handleChange(event, questionNumber)}} 
-                    id={props.optionsId[index]} 
+                    id={option.id} 
                     name={props.question} 
-                    value={option} 
+                    value={option.value} 
                     checked={condition}
                 />
                 <label 
-                    htmlFor={props.optionsId[index]} 
+                    htmlFor={option.id} 
                     className={props.gameOngoing ? 
                         `question-options-option ${condition ? "question-options-option-selected" : ""}` :
-                        `question-options-option disabled ${correct ? "correct" : ""} ${wrong ? "wrong" : ""}`
+                        `question-options-option disabled ${correct ? "correct" : ""} ${wrong ? "wrong" : ""} `
                     }
-                >{option}</label>
+                >{option.value}</label>
             </div> 
         )     
     })  
