@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import "./style.css"
 import Question from './Question'
-import { nanoid } from 'nanoid'
 
 export default function Quiz(props) {
 
