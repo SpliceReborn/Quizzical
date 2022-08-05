@@ -11,7 +11,7 @@ export default function App() {
     function startGame() {
         setGameStarted(true)
         setInitialLoad(true)
-        setTimeout(() => {setInitialLoad(false)}, 900)
+        setTimeout(() => {setInitialLoad(false)}, 1500)
     }
 
     return gameStarted ? 
